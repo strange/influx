@@ -1,0 +1,7 @@
+/logs
+/ebin
+/deps
+/.erlang.mk
+
+*.beam
+influx.d
