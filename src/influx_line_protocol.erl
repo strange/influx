@@ -35,7 +35,7 @@ flatten_tags(Tags) when is_map(Tags) ->
     flatten_tags(maps:to_list(Tags));
 flatten_tags(Tags) ->
     lists:foldl(fun({K, V}, Acc) ->
-        [Acc, ?SEP(Acc), key(K), $=, V]
+        [Acc, ?SEP(Acc), key(K), $=, key(V)]
     end, [], lists:keysort(1, Tags)).
 
 %% @doc Return optional timestamp

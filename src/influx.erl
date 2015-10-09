@@ -43,8 +43,10 @@ query(DB, Query) ->
 %% @doc Handle response from Influx
 handle_response({ok, 200, _Headers, Ref}) ->
     {ok, Body} = hackney:body(Ref),
-    Results = maps:get(<<"results">>, jsx:decode(Body, [return_maps])),
-    {ok, Results};
+    %% TODO: Support multiple series
+    Results = hd(maps:get(<<"results">>, jsx:decode(Body, [return_maps]))),
+    Series = hd(maps:get(<<"series">>, Results)),
+    {ok, Series};
 handle_response({ok, 204, _Headers, _Ref}) ->
     ok;
 handle_response({ok, _Code, Headers, Ref}) ->
